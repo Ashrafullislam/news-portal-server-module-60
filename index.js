@@ -22,9 +22,27 @@ app.get('/categories-news', (req,res)=>{
     res.send(categories)
 })
 
-app.get('/all-news', (req,res) => {
+
+app.get('/newsData', (req,res) => {
   res.send(newsData)
 })
+
+
+// get news by only id and it will be only one 
+app.get('/newsData/:id', (req,res) => {
+  const newsId = req.params.id;
+  const selectedNews = newsData.find(news => news._id === newsId)
+  res.send(selectedNews);
+
+})
+
+//get news by category id and it will be more news 
+app.get('/category/:id', (req,res) => {
+  const categoryNews = req.params.id;
+  const category = newsData.filter(catNews => catNews.category_id === categoryNews )
+  res.send(category)
+})
+
 
 app.listen(port, ()=> {
  console.log('News api server ' , port)
